@@ -16,6 +16,7 @@ include 'config.php';
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+<script src="js/theme.js"></script>
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -24,7 +25,7 @@ include 'config.php';
 </head>
 <body>
 <div class="text-center col-md-4 center-block">
-<hr><h2 style="color:Red;"><?php echo $_SESSION['gmbt'];?>三界-管理系统</h2><hr/>
+<hr><h2 class="text-danger">✨ <?php echo $_SESSION['gmbt'];?>三界-管理系统 ✨</h2><hr/>
 <form id="form" name="form" method="post" action="check.php" >
      <div class="form-group">
             <input type="text" placeholder="登陆账号" class="form-control" id="user" name="user" value="" >

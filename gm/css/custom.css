@@ -1,7 +1,21 @@
 body {
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    /* 背景颜色由 JS 随机生成，如果未加载 JS 则显示默认渐变 */
+    background: var(--page-bg, linear-gradient(45deg, #ff416c, #ff4b2b));
     color: #fff;
     font-family: "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* 半透明磨砂容器 */
+.center-block {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
 .btn {
     border-radius: 20px;
@@ -17,4 +31,21 @@ body {
 }
 .panel {
     background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 输入框及下拉框美化 */
+.form-control,
+.selectpicker {
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.form-control::placeholder {
+    color: #f0f0f0;
+}
+
+h1, h2, h3 {
+    color: #ffeb3b;
 }
