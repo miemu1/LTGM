@@ -94,9 +94,20 @@ include 'config.php';
 	     <input type="text" value="" id="searchipt" placeholder="物品搜索" class="form-control"><input class="form-control" type="button" value="搜索" id="search" maxlength="20">
                   </div>  
 			<div class="form-group">				  
+        <select class="form-control selectpicker" id="cat" name="cat" onchange="loadItems()">
+                <option value="item">道具</option>
+                <option value="box">宝箱</option>
+                <option value="fashion">时装</option>
+                <option value="card">卡</option>
+                <option value="illustration">图鉴</option>
+                <option value="pack">礼包</option>
+                <option value="gem">宝石</option>
+                <option value="title">称号</option>
+        </select>
+
          <select class="form-control selectpicker" id="item" name="item" value="item">
-		<?php
-        $file = fopen("onekey/item.admin.txt", "r");
+                <?php
+        $file = fopen("onekey/item_item.txt", "r");
         while(!feof($file))
         {
             $line=fgets($file);
@@ -116,30 +127,55 @@ include 'config.php';
 		   </div>			
 </form>
 <script>
+function loadItems(){
+    var cat = $('#cat').val();
+    $.ajax({
+        url:'itemquery.php',
+        type:'post',
+        data:{keyword:'',cat:cat},
+        cache:false,
+        dataType:'json',
+        success:function(data){
+            if(data){
+                $('#item').html('');
+                for(var i in data){
+                    $('#item').append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
+                }
+            }else{
+                $('#item').html('<option value="0">未找到</option>');
+            }
+        },
+        error:function(){
+            alert('操作失败');
+        }
+    });
+}
+loadItems();
 $('#search').click(function(){
-	  var keyword=$('#searchipt').val();
-	  $.ajax({
-		  url:'itemquery.php',
-		  type:'post',
-		  'data':{keyword:keyword},
-          'cache':false,
-          'dataType':'json',
-		  success:function(data){
-			  if(data){
-				  $('#item').html('');
-				for (var i in data){
-				  $('#item').append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
-				}
-			  }else{
-				  $('#item').html('<option value="0">未找到</option>');
-			  }
-		  },
-		  error:function(){
-			  alert('操作失败');
-		  }
-	  });
-  });
-  </script>
+    var keyword=$('#searchipt').val();
+    var cat=$('#cat').val();
+    $.ajax({
+        url:'itemquery.php',
+        type:'post',
+        data:{keyword:keyword,cat:cat},
+        cache:false,
+        dataType:'json',
+        success:function(data){
+            if(data){
+                $('#item').html('');
+                for(var i in data){
+                    $('#item').append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
+                }
+            }else{
+                $('#item').html('<option value="0">未找到</option>');
+            }
+        },
+        error:function(){
+            alert('操作失败');
+        }
+    });
+});
+</script>
 <div class="form-group">
    <p class="admin_copyright">
   <span style="font-size:16px; color:#FFD700; font-weight:bold;">

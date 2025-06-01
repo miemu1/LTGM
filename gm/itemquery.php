@@ -1,8 +1,10 @@
 <?php
 if($_POST){
-	$key=trim($_POST['keyword']);
-	$return=array(array('key'=>0,'val'=>'请选择'));
-    $file = fopen("onekey/item.admin.txt", "r");
+        $key = trim($_POST['keyword']);
+        $cat = isset($_POST['cat']) ? trim($_POST['cat']) : 'item';
+        if($cat == '') $cat = 'item';
+        $return = array(array('key'=>0,'val'=>'请选择'));
+    $file = fopen("onekey/item_".$cat.".txt", "r");
 	if($key==''){
 		while(!feof($file))
 		{
