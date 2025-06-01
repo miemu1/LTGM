@@ -20,7 +20,8 @@ include 'config.php';
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/random-bg.js"></script>
 </head>
 <body>
 <div class="text-center col-md-4 center-block">

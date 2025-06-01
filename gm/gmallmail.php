@@ -13,7 +13,8 @@
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
-	<script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/random-bg.js"></script>
 </head>
 <body>
 <?php
@@ -90,24 +91,24 @@ include 'config.php';
                             <option value="14">威望</option>
                             <option value="15">筹码</option>
 							<option value="16">兽神精魂</option>
-			</select>				
-	     <input type="text" value="" id="searchipt" placeholder="物品搜索" class="form-control"><input class="form-control" type="button" value="搜索" id="search" maxlength="20">
-                  </div>  
-			<div class="form-group">				  
+                        </select>
+            <select class="form-control" id="category">
+                <option value="">全部</option>
+                <option value="prop">道具</option>
+                <option value="chest">宝箱</option>
+                <option value="costume">时装</option>
+                <option value="card">卡</option>
+                <option value="album">图鉴</option>
+                <option value="pack">礼包</option>
+                <option value="gem">宝石</option>
+                <option value="title">称号</option>
+            </select>
+            <input type="text" value="" id="searchipt" placeholder="物品搜索" class="form-control"><input class="form-control" type="button" value="搜索" id="search" maxlength="20">
+                  </div>
+                        <div class="form-group">
          <select class="form-control selectpicker" id="item" name="item" value="item">
-		<?php
-        $file = fopen("onekey/item.admin.txt", "r");
-        while(!feof($file))
-        {
-            $line=fgets($file);
-			$txts=explode(';',$line);
-			if(count($txts)==2){
-				echo '<option value="'.$txts[0].'">'.$txts[1].'</option>';
-			}
-        }
-        fclose($file);
-			?>
-			</select>
+            <option value="">请选择</option>
+         </select>
 			<input type="text" placeholder="数量" class="form-control" id="num" name="num" value="1" maxlength="12"><br>
 			<label for="level">等级大于多少发送</label>
 			<input type="text" placeholder="请输入发送等级大于开始" class="form-control" id="level" name="level" value="" maxlength="6"><br>
@@ -116,29 +117,34 @@ include 'config.php';
 		   </div>			
 </form>
 <script>
-$('#search').click(function(){
-	  var keyword=$('#searchipt').val();
-	  $.ajax({
-		  url:'itemquery.php',
-		  type:'post',
-		  'data':{keyword:keyword},
-          'cache':false,
-          'dataType':'json',
-		  success:function(data){
-			  if(data){
-				  $('#item').html('');
-				for (var i in data){
-				  $('#item').append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
-				}
-			  }else{
-				  $('#item').html('<option value="0">未找到</option>');
-			  }
-		  },
-		  error:function(){
-			  alert('操作失败');
-		  }
-	  });
-  });
+function loadItems(){
+    var keyword = $('#searchipt').val();
+    var category = $('#category').val();
+    $.ajax({
+        url:'itemquery.php',
+        type:'post',
+        data:{keyword:keyword, category:category},
+        cache:false,
+        dataType:'json',
+        success:function(data){
+            $('#item').html('');
+            if(data && data.length){
+                for(var i in data){
+                    $('#item').append('<option value="'+data[i].key+'">'+data[i].val+'</option>');
+                }
+            }else{
+                $('#item').html('<option value="0">未找到</option>');
+            }
+        },
+        error:function(){
+            alert('操作失败');
+        }
+    });
+}
+
+$('#search').click(loadItems);
+$('#category').change(loadItems);
+loadItems();
   </script>
 <div class="form-group">
    <p class="admin_copyright">
