@@ -18,6 +18,7 @@ include 'config.php';
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
+<script src="js/theme.js"></script>
 </head>
 <body>
 <?php
