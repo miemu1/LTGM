@@ -16,6 +16,15 @@ body {
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     padding: 20px;
+    width: 90%;
+    max-width: 480px;
+    margin: 2rem auto;
+}
+
+@media (min-width: 768px) {
+    .center-block {
+        max-width: 600px;
+    }
 }
 .btn {
     border-radius: 20px;
@@ -42,10 +51,28 @@ body {
     color: #fff;
 }
 
+select.form-control,
+.selectpicker {
+    color: #000;
+}
+
+select.form-control option,
+.selectpicker option {
+    color: #000;
+}
+
 .form-control::placeholder {
     color: #f0f0f0;
 }
 
 h1, h2, h3 {
     color: #ffeb3b;
+}
+
+@media (min-width: 992px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
